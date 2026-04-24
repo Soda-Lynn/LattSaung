@@ -3,314 +3,1070 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preview Your Food Box</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-
+    <title>Latt Saung | Your Digital Gift Platform</title>
+    
     <meta name="application-name" content="Latt Saung" lang="en" />
-    <meta name="description" content="Someone has sent you a digital gift! Open this link to see your interactive handcrafted 3D food box." />
+    <meta name="description" content="Create and share unique interactive 3D gifts, snack boxes, and digital bouquets. A handcrafted digital gift platform for creative souls." />
+
+    <link rel="canonical" href="https://lattsaung.com/" />
 
     <!-- Favicon -->
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="favicon.svg" type="image/svg+xml">
 
+    <!-- Google Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
     <!-- meta og tags -->
-    <meta property="og:title" content="You've received a Digital Gift! 🎁" />
+    <meta property="og:title" content="Latt Saung - Your Digital Gift Platform" />
     <meta property="og:site_name" content="Latt Saung" />
     <meta
       property="og:description"
-      content="Someone sent you a digital gift from Poe Phalan Myar. Click to open your interactive food box!"
+      content="Design and send interactive digital bouquets, 3D snack boxes, and personalized gifts to your loved ones."
     />
     <meta
       property="og:image"
-      content="https://lattsaung.com/rose.png"
+      content="https://lattsaung.com/favicon.svg"
     />
+    <meta property="og:url" content="https://lattsaung.com/" />
     <meta property="og:type" content="website" />
 
     <!-- schema -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebPage",
-        "name": "Latt Saung - Digital Food Box Preview",
-        "description": "View your interactive handcrafted 3D food box sent from Poe Phalan Myar."
+        "@type": "WebSite",
+        "name": "Latt Saung",
+        "alternateName": ["Latt Saung", "Poe Phalan Myar Digital Gifts"],
+        "url": "https://lattsaung.com/",
+        "description": "An interactive digital studio for creating and sharing 3D gift boxes and bouquets."
       }
     </script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=Dancing+Script:wght@600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&display=swap');
 
-        body { font-family: 'Space Grotesk', sans-serif; background-color: #e9e4d1; margin: 0; overflow: hidden; user-select: none; -webkit-user-drag: none; }
-        #interactive-grid { 
-            position: fixed; top: 0; left: 0; width: 200vw; height: 200vh; 
-            background-image: radial-gradient(circle at 2px 2px, #bcbaaf 2px, transparent 0); 
-            background-size: 40px 40px; 
-            pointer-events: none; z-index: 0; 
-            animation: gridMove 30s linear infinite;
-        }
-        @keyframes gridMove { from { transform: translate(0, 0); } to { transform: translate(-40px, -40px); } }
-
-        .preview-stage { 
-            position: relative; z-index: 10; min-height: 100vh; 
-            display: flex; flex-direction: column; align-items: center; justify-content: center; 
-            padding: 2rem; transition: filter 0.5s ease; 
+        * {
+            box-sizing: border-box;
         }
 
-        .neo-btn { background: white; border: 3px solid black; font-weight: 900; box-shadow: 4px 4px 0px 0px black; padding: 10px 20px; text-transform: uppercase; font-size: 12px; }
-        .neo-btn:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px 0px black; }
-
-        #mini-card-wrapper {
-            position: absolute; bottom: 20px; right: 15%; width: 160px; height: 110px;
-            z-index: 60; cursor: pointer; perspective: 1000px;
-            transform: rotate(5deg); transition: transform 0.3s ease;
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        #mini-card-wrapper:hover { transform: rotate(0deg) scale(1.1); }
-        @media (max-width: 640px) { #mini-card-wrapper { width: 110px; height: 75px; } }
 
-        .envelope-back { position: absolute; inset: 0; background: #fff; border: 2px solid black; box-shadow: 4px 4px 0px 0px black; z-index: 1; }
-        .envelope-flap {
-            position: absolute; top: 0; left: 0; width: 100%; height: 50%;
-            background: #f0f0f0; border: 2px solid black;
-            z-index: 5; transform-origin: top;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        .animate-entry { 
+            opacity: 0; 
+            transform: translateY(30px);
         }
-        .envelope-paper {
-            position: absolute; top: 5px; left: 5px; right: 5px; bottom: 5px;
-            background: #fff; border: 2px solid black; z-index: 2;
-            display: flex; align-items: center; justify-content: center;
-            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .opening .envelope-flap { transform: rotateX(180deg); z-index: 0; }
-        .opening .envelope-paper { transform: translateY(-40px) scale(0.9); opacity: 0; }
-        #mini-preview-msg { font-size: 10px; }
+        .loaded .animate-entry { animation: slideUpFade 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-        .viewport { perspective: 2000px; display: flex; justify-content: center; align-items: center; height: 400px; width: 100%; }
-        #box-wrapper { perspective: 1200px; transform-style: preserve-3d; }
-        .cube { 
-            --x: 12em; --y: 10em; --z: 4.5em; --rotX: 65deg; --rotZ: 45deg; --color: #3b82f6;
-            position: relative; transform-style: preserve-3d; 
-            width: var(--x); height: var(--y); 
-            transform: rotateX(var(--rotX)) rotateZ(var(--rotZ));
-            cursor: grab;
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Space Grotesk', sans-serif;
+            background: #2d1b2d; /* Matches the footer background */
+            color: #111;
+            overflow-x: hidden;
+        }
+
+        /* Loading Screen Styles from h1.html */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: #387a99;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s;
+        }
+        .loader-box {
+            position: relative;
+            z-index: 1001;
+        }
+        .loader-box-inner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid black;
+            background: #73ff00; 
+            box-shadow: 6px 6px 0px 0px black;
+            animation: loader-morph 2s infinite cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes loader-morph {
+            0% { transform: rotate(0deg) scale(1); border-radius: 0%; background: #73ff00; box-shadow: 6px 6px 0px 0px black; clip-path: none; }
+            20% { transform: rotate(72deg) scale(1.1); border-radius: 50% 0 50% 0; background: #ff00ff; box-shadow: 6px -6px 0px 0px black; clip-path: none; }
+            40% { transform: rotate(144deg) scale(0.9); border-radius: 50%; background: #00ffff; box-shadow: -6px -6px 0px 0px black; clip-path: none; }
+            60% { transform: rotate(216deg) scale(1.2); border-radius: 20%; background: #ff4d4d; clip-path: none; }
+            80% { transform: rotate(288deg) scale(1.1); border-radius: 0 50% 0 50%; background: #ffff00; box-shadow: -6px 6px 0px 0px black; clip-path: none; }
+            100% { transform: rotate(360deg) scale(1); border-radius: 0%; background: #73ff00; box-shadow: 6px 6px 0px 0px black; clip-path: none; }
         }
         
-        .cube div, .cube::before, .cube::after { content: ''; position: absolute; transform-style: preserve-3d; border: 1px solid rgba(0,0,0,0.15); background: var(--texture), var(--color); box-sizing: border-box; }
-        .cube::before { width: 100%; height: var(--z); transform-origin: top center; rotate: x 90deg; filter: brightness(0.9); }
-        .cube::after { width: 100%; height: var(--z); translate: 0 var(--y); transform-origin: top center; rotate: x 90deg; filter: brightness(1.1); }
-        .side-left { width: var(--z); height: 100%; transform-origin: left center; rotate: y -90deg; filter: brightness(0.8); }
-        .side-right { width: var(--z); height: 100%; transform-origin: left center; rotate: y -90deg; translate: var(--x); filter: brightness(1.2); }
-        .side-bottom { width: 100%; height: 100%; transform: translateZ(0.2px); background: #d2b48c !important; }
-        .side-top { width: 100%; height: 100%; transform: translateZ(var(--z)); background: transparent !important; pointer-events: none; }
-        
-        .lid-inner { width: 100%; height: 100%; position: absolute; translate: 0 0 var(--z); background: #fdf5e6 !important; background-image: none !important; border: 2px solid rgba(0, 0, 0, 0.2); pointer-events: none; z-index: 15; display: flex; align-items: center; justify-content: center; font-size: 0.8em; font-weight: 900; color: rgba(0,0,0,0.3); overflow: hidden; }
-        .lid { 
-            width: calc(var(--x) + 0.4em); 
-            height: calc(var(--y) + 0.4em);
-            left: -0.2em; top: -0.2em;
-            translate: 0 0 calc(var(--z) + 0.5em); transform-origin: center top; 
-            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1); 
-            background: url('https://www.transparenttextures.com/patterns/cardboard.png'), var(--color); 
-            z-index: 20; transform-style: preserve-3d; cursor: pointer;
+        /* Progress Bar Styles */
+        .progress-container { width: 288px; max-width: 448px; border: 2px solid black; height: 36px; overflow: hidden; box-shadow: 2px 2px 0px rgba(0,0,0,1); background: white; position: relative; }
+        .progress-fill { height: 100%; background-color: #a5f3fc; display: flex; align-items: center; justify-content: flex-end; transition: width 0.1s ease-out; }
+        .progress-text { margin-right: 8px; font-weight: 700; opacity: 0.6; font-size: 14px; color: black; }
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: #2d1b2d; /* Matches the footer background */
+            z-index: -2;
         }
-        .lid-side { position: absolute; background: inherit; border: inherit; height: 1.8em; width: 100%; }
-        .ls-f { top: 100%; transform-origin: top; transform: rotateX(-90deg); filter: brightness(0.9); }
-        .ls-b { bottom: 100%; transform-origin: bottom; transform: rotateX(90deg); filter: brightness(1.1); }
-        .ls-l { width: 1.8em; height: 100%; right: 100%; transform-origin: right; transform: rotateY(-90deg); filter: brightness(0.8); }
-        .ls-r { width: 1.8em; height: 100%; left: 100%; transform-origin: left; transform: rotateY(90deg); filter: brightness(1.2); }
+
+        .page-shell {
+            position: relative;
+            z-index: 2;
+            z-index: 10; /* Increased to ensure it stays above the fixed footer */
+            background: #ede4d6;
+            margin-bottom: 300px; /* Matches footer height */
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            min-height: 100vh;
+            overflow: hidden;
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), border-radius 0.6s ease;
+            transform-origin: bottom center;
+            transform: translateZ(0); /* Forces hardware acceleration and proper stacking */
+            animation: slideUpFade 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        header {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo-area h1 {
+            font-family: 'Space Grotesk';
+            font-size: 1rem !important;
+            font-weight: 900;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 50;
+        }
+        header .logo-area h1 img {
+            width: 6rem;
+            height: 6rem;
+        }
+
+        /* Dropdown Navigation Styling */
+        .nav-container {
+            position: relative;
+            display: flex;
+            gap: 1.2rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 50;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-trigger {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .dropdown-trigger::after { 
+            content: '▼'; 
+            font-size: 1rem; 
+            transition: transform 0.3s; 
+        }
+        .dropdown.active .dropdown-trigger::after {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            border: 2px solid black;
+            box-shadow: 4px 4px 0px 0px black;
+            z-index: 100;
+            min-width: 160px;
+            margin-top: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .dropdown.active .dropdown-menu {
+            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropdown-item {
+            padding: 10px 15px;
+            display: block;
+            text-decoration: none;
+            color: black;
+            border-bottom: 1px solid #eee;
+            transition: background 0.2s;
+        }
+        .dropdown-item:last-child { 
+            border-bottom: none; 
+        }
+
+        .dropdown-item:hover {
+            background: #d2fc8d;
+            border: solid 2px black;
+        }
+
+        .navbar {
+            display: flex;
+            gap: 1.2rem;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 50;
+        }
         
-        .lid.open { translate: 0 -8em 10em; rotate: x 15deg; }
-        #box-cube:not(:has(.lid.open)) #food-container { display: none; }
-        #box-cube:has(.lid.open) .lid-inner { z-index: 5; }
-        
-        .lid-message-area { position: absolute; inset: 10px; display: flex; flex-direction: column; pointer-events: none; }
-        .lid-input { background: transparent; border: none; outline: none; font-weight: 900; text-transform: uppercase; font-size: 0.6rem; width: 100%; color: rgba(0,0,0,0.7); }
-        .lid-textarea { background: transparent; border: none; outline: none; font-family: 'Dancing Script', cursive; font-size: 1rem; resize: none; width: 100%; height: 100%; color: #222; line-height: 1.2; }
+        .navbar a {
+            text-decoration: none;
+            color: inherit;
+        }
 
-        .food-in-box { width: 10em; height: 10em; object-fit: contain; position: absolute; margin-left: -5em; margin-top: -5em; filter: drop-shadow(4px 4px 2px rgba(0,0,0,0.3)); pointer-events: none; -webkit-user-drag: none; }
+        .navbar .active-link { 
+            color: #8ec639; 
+        }
 
-        #message-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.5); z-index: 100; display: none; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.4s ease; backdrop-filter: blur(0px); }
-        #message-overlay.active { display: flex; opacity: 1; backdrop-filter: blur(8px); }
-        #zoom-card { background: white; border: 4px solid black; border-radius: 16px; width: 90%; max-width: 500px; padding: 40px; box-shadow: 12px 12px 0px 0px black; transform: scale(0.3) rotate(-15deg); opacity: 0; transition: transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s; }
-        #message-overlay.active #zoom-card { transform: scale(1) rotate(0deg); opacity: 1; }
-        .handwriting-view { font-family: 'Dancing Script', cursive; font-size: 2rem; line-height: 1.4; margin: 25px 0; color: #2d1b2d; }
-        #link-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
 
-        .box-1 { --texture: url('https://www.transparenttextures.com/patterns/carbon-fibre-big.png'); }
-        .box-3 { --texture: url('https://www.transparenttextures.com/patterns/cardboard.png'); }
-        .box-4 { --texture: url('flotxt.png'); }
-        .box-5 { --texture: none; }
-        .box-6 { --texture: url('https://www.transparenttextures.com/patterns/white-diamond.png'); }
-        .box-2 { --texture: none; }
+        .hero-wrapper {
+            max-width: 1360px;
+            margin: 0 auto;
+            padding: 1rem 2rem 0;
+        }
+
+        .hero-card {
+            position: relative;
+            padding: 2rem 1.5rem 3rem;
+            background: transparent;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+            background-size: 70px 70px;
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 100%;
+        }
+
+        .hero-copy-top {
+            display: flex;
+            font-size: 0.85rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #111;
+            opacity: 0.88;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-title {
+            margin: 0;
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            line-height: 0.95;
+            text-transform: uppercase;
+            font-weight: 1000;
+            letter-spacing: 0.12em;
+            margin-bottom: 1.4rem;
+        }
+
+        .hero-title .title-sm {
+            display: block;
+            font-size: 0.6em;
+            letter-spacing: 0.38em;
+            margin-bottom: 0.2rem;
+        }
+
+        .hero-text {
+            max-width: 760px;
+            margin: 0 0 2rem;
+            font-size: 1rem;
+            line-height: 1.75;
+            letter-spacing: 0.02em;
+            color: #111;
+            opacity: 0.9;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .hero-button {
+            position: relative;
+            border: 2px solid #111;
+            padding: 1.25rem 3.5rem 1.25rem 4.5rem;
+            border-radius: 18px;
+            background: #d2fc8d;
+            color: #111;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            box-shadow: 6px 6px 0 0 rgba(0,0,0,0.18);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.15s ease;
+        }
+
+        .hero-button::before {
+            content: '+';
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            background: #ebeee7;
+            border: 2px solid #111;
+            color: #111;
+            font-weight: 900;
+        }
+
+        .hero-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 45%;
+            z-index: 5;
+            pointer-events: none;
+            filter: drop-shadow(20px 20px 0px rgba(0,0,0,0.05));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(-50%) rotate(0deg); }
+            50% { transform: translateY(-55%) rotate(3deg); }
+        }
+
+        /....m/enu-chip {
+            position: absolute;
+            right: 2.5rem;
+            bottom: 2.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.2rem;
+            background: #eceae1;
+            border: 2px solid #111;
+            border-radius: 18px;
+            box-shadow: 6px 6px 0 0 rgba(0,0,0,0.16);
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            font-size: 0.85rem;
+        }
+
+        .hero-bottom-wave {
+            width: 100%;
+            margin-top: -1px;
+            overflow: hidden;
+            line-height: 0;
+        }
+
+        .hero-bottom-wave svg {
+            width: calc(100% + 1.3px);
+            height: 160px;
+        }
+
+        .hero-bottom-wave path {
+            fill: #131c2d;
+        }
+
+        .dark-section {
+            background: #131c2d;
+            padding: 4rem 1rem 2.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .dark-container {
+            max-width: 1360px;
+            margin: 0 auto;
+            display: grid;
+            gap: 3rem;
+        }
+
+        .feature-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .feature-panel {
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .feature-panel h2 {
+            margin: 0 0 1.2rem;
+            font-size: clamp(2rem, 2.8vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #fff;
+        }
+
+        .feature-panel p {
+            margin: 0 0 1.75rem;
+            line-height: 1.75;
+            color: rgba(255, 255, 255, 0.88);
+            max-width: 560px;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.4rem;
+            border-radius: 16px;
+            border: 2px solid #fff;
+            background: #fff;
+            color: #111;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            text-decoration: none;
+            box-shadow: 6px 6px 0 0 rgba(0,0,0,0.18);
+            transition: transform 0.15s ease;
+        }
+
+        .cta:hover {
+            background-color: #c7b;
+            transform: translateY(-2px);
+        }
+
+        .cta .material-symbols-outlined {
+            width: 32px;
+            height: 32px;
+            border: 2px solid #111;
+            border-radius: 50%;
+            font-size: 20px;
+            margin-left: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .cta:hover .material-symbols-outlined {
+            transform: translate(2px, -2px);
+        }
+
+        .feature-card {
+            position: relative;
+            padding: 1rem;
+            background: #f3e7d9;
+            max-width: 350px;
+            max-height: 250px;
+            margin: 0 auto;
+            border: 2px solid #000;
+            border-radius: 30px;
+            box-shadow: 10px 10px 0 0 rgba(190, 187, 7, 0.932);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .feature-card img {
+            width: 350px;
+            height: auto;
+            position: relative;
+            object-fit: contain;
+            bottom: 50px;
+            z-index: 10;
+        }
+
+        .feature-card::after {
+            content: '+';
+            position: absolute;
+            left: 1.25rem;
+            bottom: 1.25rem;
+            width: 2.25rem;
+            height: 2.25rem;
+            display: grid;
+            place-items: center;
+            border-radius: 999px;
+            background: #fff;
+            border: 2px solid #000;
+            color: #111;
+            font-weight: 900;
+        }
+
+        .feature-row.reverse .feature-card {
+            order: 2;
+        }
+
+        .feature-row.reverse .feature-panel {
+            order: 1;
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            width: 45px;
+            height: 45px;
+            background: #73ff00;
+            border: 3px solid black;
+            box-shadow: 4px 4px 0px 0px black;
+            cursor: pointer;
+            z-index: 1001;
+            flex-direction: column;
+            gap: 5px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-toggle span { 
+            width: 25px;
+            height: 4px;
+            background: black;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .menu-toggle.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+
+        @media (max-width: 1080px) {
+            .feature-row,
+            .studio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-row.reverse .feature-card,
+            .feature-row.reverse .feature-panel {
+                order: unset;
+            }
+
+            .studio-grid {
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 720px) {
+            .menu-toggle { display: flex; }
+            
+            .navbar {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 250px;
+                background: white;
+                border-left: 4px solid black;
+                flex-direction: column;
+                padding: 80px 30px;
+                z-index: 1000;
+                transition: 0.4s;
+            }
+
+            .navbar.active { right: 0; }
+            
+            .dropdown-menu {
+                position: static;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                box-shadow: none;
+                border: none;
+                padding-left: 15px;
+            }
+
+            .hero-card {
+                padding: 2rem 1.5rem 3rem;
+                border: none;
+                background: transparent;
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0;
+            }
+
+            .hero-actions {
+                width: 100%;
+            }
+
+            .hero-button {
+                width: 100%;
+                justify-content: center;
+                padding: 1rem 2.2rem;
+                font-size: 0.85rem;
+            }
+            .hero-card {
+                flex-direction: column;
+                align-items: flex-start;
+                text-align: left;
+            }
+            .hero-content {
+                max-width: 100%;
+            }
+            .hero-visual {
+                position: relative;
+                right: 0;
+                top: 0;
+                transform: none !important;
+                width: 220px;
+                margin: 1rem 0;
+                order: -1; /* This won't work alone, we need to adjust the DOM or use grid */
+                animation: float 6s ease-in-out infinite;
+            }
+            .hero-button::before {
+                width: 2rem; height: 2rem; left: 1rem;
+            }
+
+            .feature-panel,
+            .feature-card,
+            .studio-section {
+                padding: 1.75rem;
+            }
+
+            .studio-box {
+                min-height: 240px;
+            }
+
+            .flower-row {
+                justify-content: center;
+            }
+            /* Reordering for mobile */
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+            }
+            .hero-title { order: 1; }
+            .hero-visual { order: 2; position: relative; margin: 1rem 0; width: 220px; }
+            .hero-text { order: 3; }
+            .hero-actions { order: 4; }
+            .page-shell {
+                margin-bottom: 250px;
+            }
+            footer {
+                height: 250px;
+            }
+        }
+
+        .studio-section {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed rgba(255, 255, 255, 0.1);
+            border-radius: 40px;
+            margin-top: 2rem;
+        }
+
+        .studio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .studio-box {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 2rem;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .studio-box:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 300px;
+            background: #cdd69b;
+            text-align: center;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease, visibility 0.4s;
+        }
+
+        /* Shrink effect when footer is visible */
+        .footer-visible .page-shell {
+            transform: scale(0.92) translateY(-20px);
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+
+        .footer-visible footer {
+            opacity: 1;
+            visibility: visible;
+            transition-delay: 0.5s; /* Delays appearance until the lift is nearly finished */
+        }
+
+        .footer-content {
+            max-width: 1360px;
+            margin: 0 auto;
+        }
+
+        .footer-tag {
+            padding: 8px 20px;
+            display: inline-block;
+            font-weight: 900;
+            color: black;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+        }
+
+        /* Horizontal Spin Animation for Meanings */
+        .meaning-ticker {
+            background: #131c2d;
+            padding: 2rem 0;
+            overflow: hidden;
+            border-top: 2px solid rgba(255,255,255,0.1);
+            border-bottom: 2px solid rgba(255,255,255,0.1);
+            display: flex;
+        }
+
+        .ticker-track {
+            display: flex;
+            gap: 4rem;
+            animation: ticker-scroll 40s linear infinite;
+            white-space: nowrap;
+        }
+
+        .ticker-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #fff;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+        }
+
+        .ticker-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+
+        @keyframes ticker-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .neo-divider {
+            height: 60px;
+            background: #73ff00;
+            border-top: 4px solid #000;
+            border-bottom: 4px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            transform: rotate(-1.5deg) scale(1.1);
+            margin: 4rem -2rem;
+            z-index: 10;
+            position: relative;
+        }
     </style>
 </head>
 <body>
-    <div id="interactive-grid"></div>
-    <main class="preview-stage" id="main-content">
-        <header class="fixed top-10 left-10 z-20"><div class="bg-white border-2 border-black p-4 shadow-[4px_4px_0_0_black] rounded-xl"><p class="font-black uppercase italic text-sm">Preview Your Box!</p></div></header>
-        <div class="viewport">
-            <div id="box-wrapper">
-                <div id="box-cube" class="cube">
-                    <div class="side-left"></div><div class="side-right"></div><div class="side-bottom"></div><div class="side-top"></div>
-                    <div class="lid-inner" style="z-index: 5;">
-                        <div id="box-items-layer" style="position: absolute; inset: 0;"></div>
-                        <span style="opacity: 0.3;">BOX CONTENT</span>
+    <div id="loading-screen">
+        <div class="loader-box mb-8">
+            <div class="loader-box-inner"></div>
+        </div>
+        <p style="font-weight: 900; text-transform: uppercase; letter-spacing: 0.2em; color: white; margin-top: 1rem;">Entering Studio...</p>
+        <div class="progress-container mt-4">
+            <div id="progress-bar-fill" class="progress-fill" style="width: 0%">
+                <span id="progress-percentage" class="progress-text">0%</span>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content scroll-reveal">
+            <div class="footer-tag"><img src="logo.svg" alt="Logo" class="inline-block w-4 h-4 mr-2 mb-1"> Poe Phalan Myar © 2026</div>
+            <p style="color: rgba(0, 0, 0, 0.5); font-size: 0.8rem; margin-top: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
+                Handcrafted with ❤️ for Creative Souls
+            </p>
+            <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">FACEBOOK</a>
+                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">INSTAGRAM</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="page-shell">
+        <header>
+            <div class="logo-area animate-entry" style="animation-delay: 0.1s; cursor:pointer" onclick="location.href='index.html'">
+                <h1><img src="logo.svg" alt="Logo" class="w-6 h-6 inline-block mr-2">Latt Saung</h1>
+            </div>
+            <button class="menu-toggle animate-entry" id="menuToggle" style="animation-delay: 0.2s;">
+                <span></span><span></span><span></span>
+            </button>
+            <nav class="navbar animate-entry" id="navMenu" style="animation-delay: 0.2s;">
+                <a href="index.html" class="active-link">Home</a>
+                <div class="dropdown" id="servicesDropdown">
+                    <span class="dropdown-trigger" onclick="toggleDropdown(event)">Services</span>
+                    <div class="dropdown-menu"> 
+                        <a href="test.html" class="dropdown-item">Bouquet Studio</a>
+                        <a href="fodbox.html" class="dropdown-item">Food Box Studio</a>
                     </div>
-                    <div id="food-container" style="position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; z-index: 10;"></div>
-                    <div id="box-lid" class="lid" onclick="this.classList.toggle('open')">
-                        <div class="lid-side ls-f"></div><div class="lid-side ls-b"></div><div class="lid-side ls-l"></div><div class="lid-side ls-r"></div>
-                        <div class="lid-message-area">
-                            <input type="text" id="lid-to" class="lid-input" readonly>
-                            <textarea id="lid-body" class="lid-textarea" readonly></textarea>
-                            <input type="text" id="lid-from" class="lid-input text-right" readonly>
-                        </div>
+                </div>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
+            </nav>
+        </header>
+
+        <section class="hero-wrapper animate-entry" style="animation-delay: 0.3s;">
+            <div class="hero-card">
+                <div class="hero-content">
+                    <div class="hero-copy-top">Interactive Creative Studio</div>
+                    <h1 class="hero-title"><span class="title-sm">Poe Phalan Myar</span>Digital Gift Platform</h1>
+                    <img src="rose.png" alt="Hero Rose" class="hero-visual">
+                    <p class="hero-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae debitis harum eligendi doloribus? Minus hic recusandae ipsam, voluptatum natus harum quia, aut accusamus, fugit reiciendis itaque et aperiam molestiae fugiat.</p>
+                    <div class="hero-actions">
+                        <button class="hero-button" onclick="unlockAndScroll()">Create Now</button>
                     </div>
                 </div>
             </div>
-            
-            <div id="mini-card-wrapper" onclick="startOpeningSequence()">
-                <div class="envelope-paper" id="paper">
-                    <div class="flex flex-col items-center justify-center h-full w-full p-1 overflow-hidden">
-                        <p id="mini-preview-to" class="text-[7px] font-black uppercase border-b-[0.5px] border-black w-full text-center mb-0.5"></p>
-                        <p id="mini-preview-msg" class="text-[8px] font-bold text-center leading-tight flex-1 flex items-center">CLICK TO READ</p>
-                        <p id="mini-preview-from" class="text-[7px] font-black italic w-full text-right mt-0.5"></p>
+        </section>
+
+        <div class="hero-bottom-wave animate-entry" style="animation-delay: 0.4s;">
+            <svg viewBox="0 0 1440 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,60 C240,180 480,0 720,80 C960,160 1200,20 1440,100 L1440,160 L0,160 Z"></path>
+            </svg>
+        </div>
+
+        <section class="dark-section" id="studio-panel">
+            <div class="dark-container animate-entry" style="animation-delay: 0.5s;">
+                
+                <!-- Flower Meaning Ticker -->
+                <div class="meaning-ticker scroll-reveal">
+                    <div class="ticker-track">
+                        <!-- First Set -->
+                        <div class="ticker-item"><img src="rose.svg"></div>
+                        <div class="ticker-item"><img src="sunflower.svg"></div>
+                        <div class="ticker-item"><img src="tulip.svg"></div>
+                        <div class="ticker-item"><img src="lily.svg"></div>
+                        <div class="ticker-item"><img src="orchid.svg"></div>
+                        <div class="ticker-item"><img src="daisy.svg"></div>
+                        <div class="ticker-item"><img src="carnation.svg"></div>
+                        <!-- Duplicate for Seamless Loop -->
+                        <div class="ticker-item"><img src="rose.svg"></div>
+                        <div class="ticker-item"><img src="sunflower.svg"></div>
+                        <div class="ticker-item"><img src="tulip.svg"></div>
+                        <div class="ticker-item"><img src="lily.svg"></div>
+                        <div class="ticker-item"><img src="orchid.svg"></div>
+                        <div class="ticker-item"><img src="daisy.svg"></div>
+                        <div class="ticker-item"><img src="carnation.svg"></div>
+                        <!-- Extra set for large screens -->
+                        <div class="ticker-item"><img src="rose.svg"></div>
+                        <div class="ticker-item"><img src="sunflower.svg"></div>
+                        <div class="ticker-item"><img src="tulip.svg"></div>
                     </div>
                 </div>
-                <div class="envelope-back"></div>
+
+                <div class="feature-row scroll-reveal">
+                    <div class="feature-card"><img src="rose.png" alt="Bouquet illustration"></div>
+                    <div class="feature-panel">
+                        <h2>Bouquet Studio</h2>
+                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur cupiditate ipsum dignissimos vitae, at corrupti illum voluptatem atque quasi deserunt maxime, cum quas placeat? Totam soluta tempore minus obcaecati necessitatibus.</p>
+                        <a href="test.html" class="cta">Create Bouquet <span class="material-symbols-outlined">arrow_outward</span></a>
+                    </div>
+                </div>
+
+                <!-- Neo Brutalist Divider -->
+                <div class="neo-divider scroll-reveal">
+                    <div class="ticker-track" style="animation-duration: 10s;">
+                        <div class="ticker-item" style="color:black; font-size: 1.5rem;">Soda Soda Soda Soda Soda Soda Soda Soda Soda Soda Soda Soda</div>
+                    </div>
+                </div>
+
+                <!-- Food Meaning Ticker -->
+                <div class="meaning-ticker scroll-reveal">
+                    <div class="ticker-track" style="animation-direction: reverse; animation-duration: 35s;">
+                        <div class="ticker-item"><img src="fries.svg"></div>
+                        <div class="ticker-item"><img src="cake.svg"></div>
+                        <div class="ticker-item"><img src="apple.svg"></div>
+                        <div class="ticker-item"><img src="soda.svg"></div>
+                        <div class="ticker-item"><img src="bread.svg"></div>
+                        <div class="ticker-item"><img src="strawberry.svg"></div>
+                        <div class="ticker-item"><img src="milo.svg"></div>
+                        <!-- Duplicate -->
+                        <div class="ticker-item"><img src="fries.svg"></div>
+                        <div class="ticker-item"><img src="cake.svg"></div>
+                        <div class="ticker-item"><img src="apple.svg"></div>
+                        <div class="ticker-item"><img src="soda.svg"></div>
+                        <div class="ticker-item"><img src="bread.svg"></div>
+                    </div>
+                </div>
+
+                <div class="feature-row reverse scroll-reveal">
+                    <div class="feature-card" style="box-shadow: 10px 10px 0 0 #3b82f6;"><img src="bread2.svg" alt="Food box illustration"></div>
+                    <div class="feature-panel">
+                        <h2>Food Box Studio</h2>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae debitis harum eligendi doloribus? Minus hic recusandae ipsam, voluptatum natus harum quia, aut accusamus, fugit reiciendis itaque et aperiam molestiae fugiat.</p>
+                        <a href="fodbox.html" class="cta">Create Food Box <span class="material-symbols-outlined">arrow_outward</span></a>
+                    </div>
+                </div>
+
+                <div class="studio-section scroll-reveal">
+                    <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">More Services Coming Soon</h2>
+                    <p style="opacity: 0.7; max-width: 600px; margin: 0 auto;">We are constantly working on new interactive experiences to help you share joy with your loved ones. Stay tuned for more digital gift services.</p>
+                </div>
+            </div>
+        </section>
+    </div> <!-- Close page-shell BEFORE the footer -->
+
+    <footer>
+        <div class="footer-content scroll-reveal">
+            <div class="footer-tag"><img src="logo.svg" alt="Logo" class="inline-block w-4 h-4 mr-2 mb-1"> Poe Phalan Myar © 2026</div>
+            <p style="color: rgba(0, 0, 0, 0.5); font-size: 0.8rem; margin-top: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
+                 Your Digital Gift Platform | Created by The Moths
+            </p>
+            <p style="color: rgba(0, 0, 0, 0.4); font-size: 0.65rem; margin-top: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;">
+                © 2026 LattSaung. Visual identity and interactive elements by The Moth Studio. Stay Close to the light. All rights reserved.
+            </p>
+            <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
+                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">FACEBOOK</a>
+                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">INSTAGRAM</a>
             </div>
         </div>
-        <footer class="fixed bottom-10 z-20 flex flex-col items-center gap-4">
-            <button onclick="showLinkModal()" class="neo-btn bg-green-400">SHARE LINK</button>
-            <a href="fodbox.html" class="neo-btn bg-yellow-300 w-full text-center">CREATE NEW</a>
-        </footer>
-    </main>
-    <div id="link-modal">
-        <div class="bg-white p-8 rounded-3xl border-4 border-black shadow-[10px_10px_0_0_rgba(0,0,0,1)] max-w-md w-full">
-            <h3 class="font-black text-2xl mb-4 italic uppercase text-center">Box Link Ready!</h3>
-            <div class="flex gap-2 mb-6">
-                <input type="text" id="final-link" readonly class="flex-1 border-2 border-black p-2 font-bold bg-gray-100 rounded-lg text-xs">
-                <button onclick="copyLink()" class="neo-btn bg-yellow-300 !p-2">COPY</button>
-            </div>
-            <button onclick="closeModal()" class="w-full neo-btn bg-black text-white">CLOSE</button>
-        </div>
-    </div>
-    <div id="message-overlay" onclick="closeFullMessage()">
-        <div id="zoom-card" onclick="event.stopPropagation()">
-            <div class="flex justify-between items-start border-b-2 border-black pb-2 mb-4">
-                <p id="zoom-to" class="font-black uppercase text-xs"></p>
-                <button onclick="closeFullMessage()" class="font-black text-xl hover:text-red-500">×</button>
-            </div>
-            <p id="zoom-body" class="handwriting-view"></p>
-            <p id="zoom-from" class="font-black text-right italic text-sm"></p>
-        </div>
-    </div>
+    </footer>
+
     <script>
-        // Function to decode a Base64 string from a URL, safe for UTF-8
-        function decodeBase64URL(str) {
-            return decodeURIComponent(atob(str).split('').map(function(c) {
-                return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-            }).join(''));
-        }
-
-        window.onload = () => {
-            const params = new URLSearchParams(window.location.search);
-            const encodedData = params.get('data');
-            let data = {};
-
-            if (encodedData) {
-                try {
-                    data = JSON.parse(decodeBase64URL(encodedData));
-                } catch (e) {
-                    console.error("Error decoding or parsing URL data:", e);
+        window.addEventListener('load', () => {
+            const loaderScreen = document.getElementById('loading-screen');
+            const bar = document.getElementById('progress-bar-fill');
+            const percentText = document.getElementById('progress-percentage');
+            let progress = 0;
+            
+            const interval = setInterval(() => {
+                progress += Math.random() * (progress > 80 ? 2 : 15);
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    percentText.classList.replace('font-bold', 'font-black');
+                    percentText.style.opacity = "1";
+                    setTimeout(() => {
+                        loaderScreen.style.opacity = '0';
+                        loaderScreen.style.visibility = 'hidden';
+                        document.body.classList.add('loaded');
+                    }, 400);
                 }
-            }
+                bar.style.width = progress + '%';
+                percentText.textContent = Math.round(progress) + '%';
+            }, 150);
+        });
 
-            const items = data.i?.split(',') || [];
-            const boxType = data.bt;
-            const color = data.c;
-            const cube = document.getElementById('box-cube');
-            cube.rotX = 65; cube.rotZ = 45;
-            
-            if (boxType) cube.classList.add(`box-${boxType}`);
-            if (color) cube.style.setProperty('--color', color.trim());
-            
-            document.getElementById('zoom-to').textContent = data.to || '';
-            document.getElementById('zoom-body').textContent = data.m || '';
-            document.getElementById('zoom-from').textContent = data.fr || '';
-
-            document.getElementById('mini-preview-to').textContent = "To: " + (data.to || '');
-            document.getElementById('mini-preview-msg').textContent = data.m || '';
-            document.getElementById('mini-preview-from').textContent = "- " + (data.fr || '');
-
-            document.getElementById('lid-to').value = data.to || '';
-            document.getElementById('lid-body').value = data.m || '';
-            document.getElementById('lid-from').value = data.fr || '';
-            
-            const container = document.getElementById('box-items-layer');
-            if (items.length > 0 && items[0] !== "") {
-                items.forEach((itemStr) => {
-                    const [id, left, top] = itemStr.split('|');
-                    const img = document.createElement('img');
-                    img.src = id + ".svg";
-                    img.className = 'food-in-box';
-
-                    // Use the exact coordinates passed from the studio
-                    img.style.left = left + "%";
-                    img.style.top = top + "%";
-                    img.style.transform = `translateZ(var(--z)) rotateX(${-cube.rotX}deg)`;
-                    container.appendChild(img);
-                });
-            }
-
-            // Drag Rotation Logic
-            let startX, startY;
-            cube.addEventListener('mousedown', (e) => {
-                startX = e.pageX; startY = e.pageY;
-                const moveRotate = (ev) => {
-                    cube.rotZ += (ev.pageX - startX) * 0.5;
-                    cube.rotX -= (ev.pageY - startY) * 0.5;
-                    cube.rotX = Math.min(Math.max(cube.rotX, 20), 85);
-                    cube.style.setProperty('--rotX', cube.rotX + 'deg');
-                    cube.style.setProperty('--rotZ', cube.rotZ + 'deg');
-                    updateBillboarding(cube);
-                    startX = ev.pageX; startY = ev.pageY;
-                };
-                const endRotate = () => {
-                    document.removeEventListener('mousemove', moveRotate);
-                    document.removeEventListener('mouseup', endRotate);
-                };
-                document.addEventListener('mousemove', moveRotate);
-                document.addEventListener('mouseup', endRotate);
+        const observerOptions = { threshold: 0.15 };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
             });
-        };
-        function updateBillboarding(cube) {
-            cube.querySelectorAll('.food-in-box').forEach(img => {
-                img.style.transform = `translateZ(var(--z)) rotateX(${-cube.rotX}deg)`;
-            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        const servicesDropdown = document.getElementById('servicesDropdown');
+
+        function toggleDropdown(e) {
+            e.stopPropagation();
+            servicesDropdown.classList.toggle('active');
         }
-        function startOpeningSequence() {
-            document.getElementById('mini-card-wrapper').classList.add('opening');
-            setTimeout(() => { openFullMessage(); }, 600);
+
+        // Close dropdown when clicking outside
+        window.addEventListener('click', () => {
+            servicesDropdown.classList.remove('active');
+        });
+
+        function unlockAndScroll() {
+            document.getElementById('studio-panel').scrollIntoView({ behavior: 'smooth' });
         }
-        function openFullMessage() {
-            document.getElementById('message-overlay').classList.add('active');
-            document.getElementById('main-content').style.filter = "blur(10px)";
-        }
-        function closeFullMessage() {
-            document.getElementById('message-overlay').classList.remove('active');
-            document.getElementById('main-content').style.filter = "none";
-            document.getElementById('mini-card-wrapper').classList.remove('opening');
-        }
-        function showLinkModal() {
-            document.getElementById('final-link').value = window.location.href;
-            document.getElementById('link-modal').style.display = 'flex';
-        }
-        function copyLink() {
-            const linkInput = document.getElementById('final-link');
-            linkInput.select();
-            document.execCommand('copy');
-            alert("Link copied!");
-        }
-        function closeModal() { document.getElementById('link-modal').style.display = 'none'; }
+
+        menuToggle.addEventListener('click', () => {
+            menuToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        // Footer Shrink Logic
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.innerHeight + window.scrollY;
+            const bodyHeight = document.body.offsetHeight;
+            const threshold = 10; // pixels from bottom
+            
+            if (scrollPos >= bodyHeight - threshold) {
+                document.body.classList.add('footer-visible');
+            } else {
+                document.body.classList.remove('footer-visible');
+            }
+        }, { passive: true });
     </script>
 </body>
 </html>
