@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -69,7 +69,7 @@
             margin: 0;
             min-height: 100vh;
             font-family: 'Space Grotesk', sans-serif;
-            background: #2d1b2d; /* Matches the footer background */
+            background: #cdd69b;
             color: #111;
             overflow-x: hidden;
         }
@@ -115,16 +115,15 @@
             content: '';
             position: fixed;
             inset: 0;
-            background: #2d1b2d; /* Matches the footer background */
+            background: #cdd69b; /* Matches the footer background */
             z-index: -2;
         }
 
         .page-shell {
             position: relative;
-            z-index: 2;
-            z-index: 10; /* Increased to ensure it stays above the fixed footer */
+            z-index: 10;
             background: #ede4d6;
-            margin-bottom: 300px; /* Matches footer height */
+            margin-bottom: 300px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.2);
             min-height: 100vh;
             overflow: hidden;
@@ -666,11 +665,18 @@
             .hero-text { order: 3; }
             .hero-actions { order: 4; }
             .page-shell {
-                margin-bottom: 250px;
+                margin-bottom: 0;
             }
             footer {
-                height: 250px;
+                position: fixed; height: 250px;
             }
+            footer .footer-content {
+                padding: 0 20px;
+            }
+            footer p {
+                margin-bottom: 2rem !important;
+            }
+            .page-shell { margin-bottom: 250px; }
         }
 
         .studio-section {
@@ -705,49 +711,6 @@
         .studio-box:hover {
             background: rgba(255, 255, 255, 0.08);
             transform: translateY(-5px);
-        }
-
-        footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            height: 300px;
-            background: #cdd69b;
-            text-align: center;
-            z-index: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: opacity 0.4s ease, visibility 0.4s;
-        }
-
-        /* Shrink effect when footer is visible */
-        .footer-visible .page-shell {
-            transform: scale(0.92) translateY(-20px);
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-        }
-
-        .footer-visible footer {
-            opacity: 1;
-            visibility: visible;
-            transition-delay: 0.5s; /* Delays appearance until the lift is nearly finished */
-        }
-
-        .footer-content {
-            max-width: 1360px;
-            margin: 0 auto;
-        }
-
-        .footer-tag {
-            padding: 8px 20px;
-            display: inline-block;
-            font-weight: 900;
-            color: black;
-            text-transform: uppercase;
-            font-size: 0.75rem;
         }
 
         /* Horizontal Spin Animation for Meanings */
@@ -803,6 +766,21 @@
             z-index: 10;
             position: relative;
         }
+
+        footer {
+            position: fixed; bottom: 0; width: 100%; height: 300px;
+            background: #cdd69b; text-align: center; z-index: 1;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s;
+        }
+        .footer-tag { padding: 8px 20px; display: inline-block; font-weight: 900; color: black; text-transform: uppercase; font-size: 0.75rem; }
+        .footer-visible .page-shell {
+            transform: scale(0.92) translateY(-20px);
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+        .footer-visible footer { opacity: 1; visibility: visible; transition-delay: 0.5s;
+        }
     </style>
 </head>
 <body>
@@ -817,19 +795,6 @@
             </div>
         </div>
     </div>
-
-    <footer class="site-footer">
-        <div class="footer-content scroll-reveal">
-            <div class="footer-tag"><img src="logo.svg" alt="Logo" class="inline-block w-4 h-4 mr-2 mb-1"> Poe Phalan Myar © 2026</div>
-            <p style="color: rgba(0, 0, 0, 0.5); font-size: 0.8rem; margin-top: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
-                Handcrafted with ❤️ for Creative Souls
-            </p>
-            <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
-                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">FACEBOOK</a>
-                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">INSTAGRAM</a>
-            </div>
-        </div>
-    </footer>
 
     <div class="page-shell">
         <header>
@@ -856,10 +821,10 @@
         <section class="hero-wrapper animate-entry" style="animation-delay: 0.3s;">
             <div class="hero-card">
                 <div class="hero-content">
-                    <div class="hero-copy-top">Interactive Creative Studio</div>
-                    <h1 class="hero-title"><span class="title-sm">Poe Phalan Myar</span>Digital Gift Platform</h1>
-                    <img src="rose.png" alt="Hero Rose" class="hero-visual">
-                    <p class="hero-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae debitis harum eligendi doloribus? Minus hic recusandae ipsam, voluptatum natus harum quia, aut accusamus, fugit reiciendis itaque et aperiam molestiae fugiat.</p>
+                    <div class="hero-copy-top"></div>
+                    <h1 class="hero-title"><span class="title-sm">Latt Saung</span>Your Digital Gift Platform</h1>
+                    <img src="pre.png" alt="Hero Visual" class="hero-visual">
+                    <p class="hero-text">Latt Saung is your premier destination for creating and sending digital gifts that bring joy and connection to your loved ones.</p>
                     <div class="hero-actions">
                         <button class="hero-button" onclick="unlockAndScroll()">Create Now</button>
                     </div>
@@ -906,17 +871,13 @@
                     <div class="feature-card"><img src="rose.png" alt="Bouquet illustration"></div>
                     <div class="feature-panel">
                         <h2>Bouquet Studio</h2>
-                        <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consectetur cupiditate ipsum dignissimos vitae, at corrupti illum voluptatem atque quasi deserunt maxime, cum quas placeat? Totam soluta tempore minus obcaecati necessitatibus.</p>
+                        <p>A place where you can create beautiful digital bouquets for your loved ones.</p>
                         <a href="test.html" class="cta">Create Bouquet <span class="material-symbols-outlined">arrow_outward</span></a>
                     </div>
                 </div>
 
-                <!-- Neo Brutalist Divider -->
-                <div class="neo-divider scroll-reveal">
-                    <div class="ticker-track" style="animation-duration: 10s;">
-                        <div class="ticker-item" style="color:black; font-size: 1.5rem;">Soda Soda Soda Soda Soda Soda Soda Soda Soda Soda Soda Soda</div>
-                    </div>
-                </div>
+                <!-- Divider -->
+                <div class="scroll-reveal" z-index="1" style="max-width: 80%; margin: 2rem auto; height: 4px; background: #ff9800; border-radius: 2px;"></div>
 
                 <!-- Food Meaning Ticker -->
                 <div class="meaning-ticker scroll-reveal">
@@ -941,14 +902,14 @@
                     <div class="feature-card" style="box-shadow: 10px 10px 0 0 #3b82f6;"><img src="bread2.svg" alt="Food box illustration"></div>
                     <div class="feature-panel">
                         <h2>Food Box Studio</h2>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae debitis harum eligendi doloribus? Minus hic recusandae ipsam, voluptatum natus harum quia, aut accusamus, fugit reiciendis itaque et aperiam molestiae fugiat.</p>
-                        <a href="fodbox.html" class="cta">Create Food Box <span class="material-symbols-outlined">arrow_outward</span></a>
+                        <p>Create personalized food boxes for your loved ones with our easy-to-use studio.</p>
+                        <a href="foodbox.html" class="cta">Create Food Box <span class="material-symbols-outlined">arrow_outward</span></a>
                     </div>
                 </div>
 
                 <div class="studio-section scroll-reveal">
-                    <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem;">More Services Coming Soon</h2>
-                    <p style="opacity: 0.7; max-width: 600px; margin: 0 auto;">We are constantly working on new interactive experiences to help you share joy with your loved ones. Stay tuned for more digital gift services.</p>
+                    <h2 style="font-size: 2rem; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 1rem; color: rgba(205, 214, 155, 0.7);">More Services Coming Soon</h2>
+                    <p style="max-width: 600px; margin: 0 auto; color: rgba(205, 214, 155, 0.7);">We are constantly working on new interactive experiences to help you share joy with your loved ones. Stay tuned for more digital gift services.</p>
                 </div>
             </div>
         </section>
@@ -956,17 +917,13 @@
 
     <footer>
         <div class="footer-content scroll-reveal">
-            <div class="footer-tag"><img src="logo.svg" alt="Logo" class="inline-block w-4 h-4 mr-2 mb-1"> Poe Phalan Myar © 2026</div>
-            <p style="color: rgba(0, 0, 0, 0.5); font-size: 0.8rem; margin-top: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
+            <div class="footer-tag-2 mb-1" style="color: black;"> LattSaung © 2026</div>
+            <p style="color: rgba(0, 0, 0, 0.6); font-size: 0.8rem; margin-top: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
                  Your Digital Gift Platform | Created by The Moths
             </p>
-            <p style="color: rgba(0, 0, 0, 0.4); font-size: 0.65rem; margin-top: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;">
+            <p style="color: rgba(0, 0, 0, 0.5); font-size: 0.65rem; margin-bottom: 5rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;">
                 © 2026 LattSaung. Visual identity and interactive elements by The Moth Studio. Stay Close to the light. All rights reserved.
             </p>
-            <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
-                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">FACEBOOK</a>
-                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">INSTAGRAM</a>
-            </div>
         </div>
     </footer>
 
@@ -1031,17 +988,9 @@
             navMenu.classList.toggle('active');
         });
 
-       
         window.addEventListener('scroll', () => {
-            const scrollPos = window.innerHeight + window.scrollY;
-            const bodyHeight = document.body.offsetHeight;
-            const threshold = 10; // pixels from bottom
-            
-            if (scrollPos >= bodyHeight - threshold) {
-                document.body.classList.add('footer-visible');
-            } else {
-                document.body.classList.remove('footer-visible');
-            }
+            const atBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10;
+            document.body.classList.toggle('footer-visible', atBottom);
         }, { passive: true });
     </script>
 </body>

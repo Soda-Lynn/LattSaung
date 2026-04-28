@@ -36,27 +36,27 @@
         header {
             max-width: 1360px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         header .logo-area h1 {
-            background: white;
-            border: 3px solid black;
-            padding: 8px 16px;
-            box-shadow: 4px 4px 0px 0px #000;
-            transform: rotate(-1deg);
-            font-size: 1.1rem !important;
+            font-family: 'Space Grotesk';
+            font-size: 1rem !important;
             font-weight: 900;
             text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 50;
+        }
+        header .logo-area h1 img {
+            width: 6rem;
+            height: 6rem;
         }
 
-        header .logo-area h1:hover {
-            transform: rotate(0deg) scale(1.05);
-            transition: 0.3s;
-        }
 
         .navbar {
             display: flex;
@@ -178,19 +178,14 @@
         }
 
         footer {
-            position: fixed; bottom: 0; left: 0; width: 100%; height: 300px;
-            background: #2d1b2d; border-top: 4px solid #000; text-align: center;
-            z-index: 1; display: flex; align-items: center; justify-content: center;
+            position: fixed; bottom: 0; width: 100%; height: 300px;
+            background: #2d1b2d; text-align: center; z-index: 1;
+            display: flex; align-items: center; justify-content: center;
             opacity: 0; visibility: hidden; transition: opacity 0.4s ease, visibility 0.4s;
         }
-        /* Shrink effect when footer is visible */
-        .footer-visible .page-shell {
-            transform: scale(0.92) translateY(-20px);
-            border-bottom-left-radius: 40px;
-            border-bottom-right-radius: 40px;
-        }
+        .footer-tag { padding: 8px 20px; display: inline-block; font-weight: 900; color: rgb(255, 255, 255); text-transform: uppercase; font-size: 0.75rem; }
+        .footer-visible .page-shell { transform: scale(0.92) translateY(-20px); border-bottom-left-radius: 40px; border-bottom-right-radius: 40px; }
         .footer-visible footer { opacity: 1; visibility: visible; transition-delay: 0.5s; }
-        .footer-tag { background: #fff; border: 2px solid #000; padding: 8px 20px; display: inline-block; font-weight: 900; text-transform: uppercase; font-size: 0.75rem; box-shadow: 4px 4px 0px 0px #73ff00; }
 
         @media (max-width: 720px) {
             .menu-toggle { display: flex; }
@@ -206,6 +201,7 @@
                 padding: 80px 30px;
                 z-index: 1000;
                 transition: 0.4s;
+                overflow-y: auto;
             }
             .navbar.active { right: 0; }
             .dropdown-menu {
@@ -217,8 +213,9 @@
                 border: none;
                 padding-left: 15px;
             }
+            .page-shell { margin-bottom: 0; }
+            footer { position: fixed; height: 250px; }
             .page-shell { margin-bottom: 250px; }
-            footer { height: 250px; }
         }
 
         .footer-content {
@@ -230,12 +227,14 @@
 <body>
     <div class="page-shell">
         <header>
-            <div class="logo-area" onclick="location.href='index.html'" style="cursor:pointer"><h1>Poe Phalan Myar</h1></div>
+            <div class="logo-area animate-entry" style="animation-delay: 0.1s; cursor:pointer" onclick="location.href='index.html'">
+                <h1><img src="logo.svg" alt="Logo" class="w-6 h-6 inline-block mr-2">Latt Saung</h1>
+            </div>
             <button class="menu-toggle" id="menuToggle">
                 <span></span><span></span><span></span>
             </button>
             <nav class="navbar" id="navMenu">
-                <span onclick="location.href='index.html'" style="cursor:pointer">Home</span>
+                <a href="index.html">Home</a>
                 <div class="dropdown" id="servicesDropdown">
                     <span class="dropdown-trigger" onclick="toggleDropdown(event)">Services</span>
                     <div class="dropdown-menu">
@@ -243,8 +242,8 @@
                         <a href="fodbox.html" class="dropdown-item">Food Box Studio</a>
                     </div>
                 </div>
-                <span onclick="location.href='about.html'" class="active-link" style="cursor:pointer">About</span>
-                <span onclick="location.href='feedback.html'" style="cursor:pointer">Feedback</span>
+                <a href="about.html" class="active-link">About</a>
+                <a href="feedback.html">Feedback</a>
             </nav>
         </header>
 
@@ -252,14 +251,27 @@
             <div class="text-center mb-16">
                 <h2 class="section-title text-2xl">Our Story</h2>
                 <p class="text-lg font-bold leading-relaxed text-gray-800 mt-6">
-                    "Poe Phalan Myar" (ပိုးဖလံများ) translates to "Moths" in Burmese. Just as moths are irresistibly drawn to light, we are drawn to the beauty of digital creativity and the warmth of traditional Myanmar culture.
-                </p>
+                    This website is created by the team called "The Moths" as an experinmental project to explore digital gifting culture and interactive web design.</p>
+                    <br>
+                    <br>
+            </div>
+            <div class="text-center mb-16">
+                <h2 class="section-title text-2xl">Moths</h2>
+                <p class="text-lg font-bold leading-relaxed text-gray-800 mt-6">
+                    <div class="flex flex-col md:flex-row justify-center items-stretch gap-8">
+                        </div>
+                    Why "Moths"? Moths symbolize transformation, attraction to light, and the beauty of the night blah blah blah
+                        <br>
+                        cause we just like the name and it sounds cool, that's all.</p>
+                        <br>
+                    <br>
+                    <p>Our so called "Moth Studio" is just our team leader, Soda's room which is a very hot and super annoying place to live. So you can consider this project is created from the hell.</p>
             </div>
 
             <div class="flex flex-col md:flex-row justify-center items-stretch gap-8">
                 <!-- Mission Card -->
                 <div class="w-80 border-black border-2 rounded-md hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] bg-white transition-shadow">
-                    <a href="index.html" class="block cursor-pointer h-full">
+                    <div class="block cursor-pointer h-full" onclick="toggleReadMore(this)">
                        <article class="w-full h-full flex flex-col">
                           <figure class="w-full h-48 border-black border-b-2 overflow-hidden">
                              <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=400" alt="Mission" class="w-full h-full object-cover" />
@@ -267,18 +279,18 @@
                           <div class="px-6 py-5 text-left flex-1">
                              <p class="text-base mb-4 font-bold">Our Purpose</p>
                              <h1 class="text-[32px] mb-4 font-black leading-none">The Mission</h1>
-                             <p class="text-xs mb-4 line-clamp-4 font-medium">
+                             <p class="text-xs mb-4 font-medium line-clamp-4 transition-all duration-300">
                                 To bridge the gap between traditional Myanmar gifting culture and the modern digital landscape, providing a space where creativity knows no bounds and every gift tells a unique story.
                              </p>
-                             <strong class="uppercase text-sm">Start Now</strong>
+                             <strong class="uppercase text-sm">Read More</strong>
                           </div>
                        </article>
-                    </a>
+                    </div>
                 </div>
 
                 <!-- Vision Card -->
                 <div class="w-80 border-black border-2 rounded-md hover:shadow-[8px_8px_0px_rgba(0,0,0,1)] bg-[#d2fc8d] transition-shadow">
-                    <a href="feedback.html" class="block cursor-pointer h-full">
+                    <div class="block cursor-pointer h-full" onclick="toggleReadMore(this)">
                        <article class="w-full h-full flex flex-col">
                           <figure class="w-full h-48 border-black border-b-2 overflow-hidden">
                              <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?auto=format&fit=crop&q=80&w=400" alt="Vision" class="w-full h-full object-cover" />
@@ -286,13 +298,13 @@
                           <div class="px-6 py-5 text-left flex-1">
                              <p class="text-base mb-4 font-bold">Our Future</p>
                              <h1 class="text-[32px] mb-4 font-black leading-none">The Vision</h1>
-                             <p class="text-xs mb-4 line-clamp-4 font-medium">
+                             <p class="text-xs mb-4 font-medium line-clamp-4 transition-all duration-300">
                                 We envision a world where digital expressions of love and appreciation are as tactile and meaningful as physical ones, becoming the leading platform for interactive cultural gifts.
                              </p>
-                             <strong class="uppercase text-sm">Feedback</strong>
+                             <strong class="uppercase text-sm">Read More</strong>
                           </div>
                        </article>
-                    </a>
+                    </div>
                 </div>
             </div>
 
@@ -327,14 +339,13 @@
 
     <footer>
         <div class="footer-content scroll-reveal">
-            <div class="footer-tag">Poe Phalan Myar © 2026</div>
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
-                Handcrafted with ❤️ for Creative Souls
+            <div class="footer-tag-2 mb-1 text-white">LattSaung © 2026</div>
+            <p style="color: rgb(255, 255, 255); font-size: 0.8rem; margin-top: 1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
+                 Your Digital Gift Platform | Created by The Moths
             </p>
-            <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
-                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">FACEBOOK</a>
-                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">INSTAGRAM</a>
-            </div>
+            <p style="color: rgb(231, 255, 146); font-size: 0.65rem; margin-bottom: 5rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em;">
+                © 2026 LattSaung. Visual identity and interactive elements by The Moth Studio. Stay Close to the light. All rights reserved.
+            </p>
         </div>
     </footer>
 
@@ -362,6 +373,18 @@
             const atBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10;
             document.body.classList.toggle('footer-visible', atBottom);
         }, { passive: true });
+
+        function toggleReadMore(card) {
+            const text = card.querySelector('p.text-xs');
+            const btn = card.querySelector('strong');
+            if (text.classList.contains('line-clamp-4')) {
+                text.classList.remove('line-clamp-4');
+                btn.textContent = 'Read Less';
+            } else {
+                text.classList.add('line-clamp-4');
+                btn.textContent = 'Read More';
+            }
+        }
     </script>
     <!-- Favicon -->
     <link rel="icon" href="favicon.svg" type="image/svg+xml">

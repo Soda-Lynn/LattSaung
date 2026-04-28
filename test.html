@@ -4,7 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bouquet Studio | Test</title>
+    
+    <meta name="application-name" content="Latt Saung" lang="en" />
+    <meta name="description" content="Design your own interactive digital bouquet. Pick your flowers, add a message, and share the love." />
+
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- meta og tags -->
+    <meta property="og:title" content="Latt Saung - Bouquet Studio" />
+    <meta property="og:site_name" content="Latt Saung" />
+    <meta
+      property="og:description"
+      content="Create a custom handcrafted digital bouquet for your loved ones."
+    />
+    <meta
+      property="og:image"
+      content="https://lattsaung.onrender.com/rose.png"
+    />
+    <meta property="og:url" content="https://lattsaung.onrender.com/test.html" />
+    <meta property="og:type" content="website" />
+
+    <!-- schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Bouquet Studio",
+        "url": "https://lattsaung.onrender.com/test.html",
+        "description": "Interactive studio for creating 3D digital flower bouquets."
+      }
+    </script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=Dancing+Script:wght@600&display=swap');
         
@@ -36,23 +66,25 @@
         header {
             max-width: 1360px;
             margin: 0 auto;
-            padding: 1rem 2rem;
+            padding: 1.5rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         header .logo-area h1 {
-            background: white;
-            border: 3px solid black;
-            padding: 8px 16px;
-            box-shadow: 4px 4px 0px 0px #000;
-            transform: rotate(-1deg);
-            font-size: 1.1rem !important;
+            font-family: 'Space Grotesk';
+            font-size: 1rem !important;
             font-weight: 900;
             text-transform: uppercase;
-            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             z-index: 50;
+        }
+        header .logo-area h1 img {
+            width: 6rem;
+            height: 6rem;
         }
 
         .navbar {
@@ -142,12 +174,6 @@
         .menu-toggle.active span:nth-child(2) { opacity: 0; }
         .menu-toggle.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 
-        footer {
-            position: relative; width: 100%; height: 300px;
-            background: #2d1b2d; border-top: 4px solid #000; text-align: center;
-            z-index: 1; display: flex; align-items: center; justify-content: center;
-        }
-        .footer-tag { background: #fff; border: 2px solid #000; padding: 8px 20px; font-weight: 900; text-transform: uppercase; font-size: 0.75rem; box-shadow: 4px 4px 0px 0px #73ff00; }
         @media (max-width: 720px) {
             .menu-toggle { display: flex; }
             .navbar {
@@ -319,21 +345,23 @@
 
     <div class="page-shell">
         <header>
-            <div class="logo-area" onclick="location.href='index.html'" style="cursor:pointer"><h1>Poe Phalan Myar</h1></div>
-            <button class="menu-toggle" id="menuToggle">
+            <div class="logo-area animate-entry" style="animation-delay: 0.1s; cursor:pointer" onclick="location.href='index.html'">
+                <h1><img src="logo.svg" alt="Logo" class="w-6 h-6 inline-block mr-2">Latt Saung</h1>
+            </div>
+            <button class="menu-toggle animate-entry" id="menuToggle" style="animation-delay: 0.2s;">
                 <span></span><span></span><span></span>
             </button>
-            <nav class="navbar" id="navMenu">
-                <span onclick="location.href='index.html'" style="cursor:pointer">Home</span>
+            <nav class="navbar animate-entry" id="navMenu" style="animation-delay: 0.2s;">
+                <a href="index.html">Home</a>
                 <div class="dropdown" id="servicesDropdown">
-                    <span class="dropdown-trigger active-link" onclick="toggleDropdown(event)">Services</span>
+                    <span class="dropdown-trigger" onclick="toggleDropdown(event)">Services</span>
                     <div class="dropdown-menu">
                         <a href="test.html" class="dropdown-item">Bouquet Studio</a>
                         <a href="fodbox.html" class="dropdown-item">Food Box Studio</a>
                     </div>
                 </div>
-                <span onclick="location.href='about.html'" class="nav-link" style="cursor:pointer">About</span>
-                <span onclick="location.href='feedback.html'" class="nav-link" style="cursor:pointer">Feedback</span>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="feedback.html" class="nav-link">Feedback</a>
             </nav>
         </header>
 
@@ -380,18 +408,6 @@
     </div>
     </div>
 
-    <footer>
-        <div class="footer-content">
-            <div class="footer-tag">Poe Phalan Myar © 2025</div>
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.8rem; margin-top: 1.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;">
-                Handcrafted with ❤️ for Creative Souls
-            </p>
-            <div style="margin-top: 1rem; display: flex; gap: 1rem; justify-content: center;">
-                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">FACEBOOK</a>
-                <a href="#" style="color: #73ff00; text-decoration: none; font-size: 0.7rem; font-weight: 900;">INSTAGRAM</a>
-            </div>
-        </div>
-    </footer>
 
     <script>
         const menuToggle = document.getElementById('menuToggle');
@@ -571,16 +587,6 @@
     </script>
     <!-- Favicon -->
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
-
-    <!-- Meta Tags -->
-    <meta name="description" content="Design a beautiful interactive digital flower bouquet. Pick your blooms and send a personalized floral gift.">
-    <meta property="og:title" content="Bouquet Studio | Poe Phalan Myar">
-    <meta property="og:description" content="Create a custom digital bouquet with meaningful flowers for someone special.">
-    <meta property="og:image" content="rose.png">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Bouquet Studio | Poe Phalan Myar">
-    <meta name="twitter:description" content="Design and share interactive digital flower bouquets.">
 
 </body>
 </html>

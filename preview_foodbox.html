@@ -5,24 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Preview Your Food Box</title>
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <meta name="application-name" content="Latt Saung" lang="en" />
+    <meta name="description" content="Someone has sent you a digital gift! Open this link to see your interactive 3D food box." />
+
+   <!-- Favicon -->
+    <link rel="icon" href="pre2.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="pre2.svg">
+
+    <meta name="description" content="Someone has sent you a digital food box from Latt Saung. Click to open your food box" />
+
+    <!-- meta og tags -->
+    <meta property="og:title" content="You've received a Food Box from Latt Saung!  " />
+    <meta property="og:site_name" content="Latt Saung" />
+    <meta
+      property="og:description"
+      content="Someone sent you a digital food box from Latt Saung. Click to open your delicious food box!"
+    />
+    <meta
+      property="og:image"
+      content="https://lattsaung.onrender.com/pre2.png"
+    />
+    <meta property="og:type" content="website" />
+
+    <!-- schema -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Latt Saung - Digital Gift Preview",
+        "description": "View your digital food box sent from someone."
+      }
+    </script>
+
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;900&family=Dancing+Script:wght@600&display=swap');
 
         body { font-family: 'Space Grotesk', sans-serif; background-color: #e9e4d1; margin: 0; overflow: hidden; user-select: none; -webkit-user-drag: none; }
-
-    <!-- Favicon -->
-    <link rel="icon" href="favicon.svg" type="image/svg+xml">
-
-    <!-- Meta Tags for Shared Gift -->
-    <meta name="description" content="Someone has sent you a digital gift! Open this link to see your interactive handcrafted 3D food box.">
-    <meta property="og:title" content="You've received a Digital Gift! 🎁">
-    <meta property="og:description" content="Someone sent you a digital gift from Poe Phalan Myar. Click to open your interactive food box!">
-    <meta property="og:image" content="rose.png">
-    <meta property="og:type" content="website">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="You've received a Digital Gift!">
-    <meta name="twitter:description" content="Someone sent you an interactive 3D food box. Open it now!">
-
         #interactive-grid { 
             position: fixed; top: 0; left: 0; width: 200vw; height: 200vh; 
             background-image: radial-gradient(circle at 2px 2px, #bcbaaf 2px, transparent 0); 
@@ -129,7 +148,13 @@
 <body>
     <div id="interactive-grid"></div>
     <main class="preview-stage" id="main-content">
-        <header class="fixed top-10 left-10 z-20"><div class="bg-white border-2 border-black p-4 shadow-[4px_4px_0_0_black] rounded-xl"><p class="font-black uppercase italic text-sm">Preview Your Box!</p></div></header>
+        <header class="fixed top-10 left-10 z-20">
+            <div class="logo-area animate-entry" style="animation-delay: 0.1s; cursor:pointer; background: white; border: 2px solid black; padding: 10px; box-shadow: 4px 4px 0 0 black; border-radius: 12px;" onclick="location.href='index.html'">
+                <h1 style="font-weight: 900; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem;">
+                    <img src="logo.svg" alt="Logo" class="w-4 h-4">Latt Saung
+                </h1>
+            </div>
+        </header>
         <div class="viewport">
             <div id="box-wrapper">
                 <div id="box-cube" class="cube">
