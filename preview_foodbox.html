@@ -55,13 +55,14 @@
             position: relative; z-index: 10; min-height: 100vh; 
             display: flex; flex-direction: column; align-items: center; justify-content: center; 
             padding: 2rem; transition: filter 0.5s ease; 
+            animation: pageReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1);
         }
 
         .neo-btn { background: white; border: 3px solid black; font-weight: 900; box-shadow: 4px 4px 0px 0px black; padding: 10px 20px; text-transform: uppercase; font-size: 12px; }
         .neo-btn:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px 0px black; }
 
         #mini-card-wrapper {
-            position: absolute; bottom: 20px; right: 15%; width: 160px; height: 110px;
+            position: absolute; bottom: 90px; right: 30%; width: 160px; height: 110px;
             z-index: 60; cursor: pointer; perspective: 1000px;
             transform: rotate(5deg); transition: transform 0.3s ease;
         }
@@ -137,22 +138,20 @@
         .handwriting-view { font-family: 'Dancing Script', cursive; font-size: 2rem; line-height: 1.4; margin: 25px 0; color: #2d1b2d; }
         #link-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
 
-        .box-1 { --texture: url('https://www.transparenttextures.com/patterns/carbon-fibre-big.png'); }
-        .box-3 { --texture: url('https://www.transparenttextures.com/patterns/cardboard.png'); }
-        .box-4 { --texture: url('flotxt.png'); }
-        .box-5 { --texture: none; }
-        .box-6 { --texture: url('https://www.transparenttextures.com/patterns/white-diamond.png'); }
-        .box-2 { --texture: none; }
+        .box-1, .box-2, .box-3, .box-4, .box-5, .box-6 { 
+            --texture: url('https://www.transparenttextures.com/patterns/cardboard.png'); 
+        }
+        .box-2 { --texture: none; } /* Keeping box-2 unique as per fodbox.html logic if applicable, 
+                                       but fodbox.html uses cardboard for 1,3,4,5,6 */
+        .box-1, .box-3, .box-4, .box-5, .box-6 { --texture: url('https://www.transparenttextures.com/patterns/cardboard.png'); }
     </style>
 </head>
 <body>
     <div id="interactive-grid"></div>
     <main class="preview-stage" id="main-content">
         <header class="fixed top-10 left-10 z-20">
-            <div class="logo-area animate-entry" style="animation-delay: 0.1s; cursor:pointer; background: white; border: 2px solid black; padding: 10px; box-shadow: 4px 4px 0 0 black; border-radius: 12px;" onclick="location.href='index.html'">
-                <h1 style="font-weight: 900; text-transform: uppercase; display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem;">
-                    <img src="logo.svg" alt="Logo" class="w-4 h-4">Latt Saung
-                </h1>
+            <div class="bg-white border-2 border-black p-4 shadow-[4px_4px_0_0_black] rounded-xl">
+                <p class="font-black uppercase italic text-sm">You Received A Food Box!</p>
             </div>
         </header>
         <div class="viewport">
@@ -161,7 +160,7 @@
                     <div class="side-left"></div><div class="side-right"></div><div class="side-bottom"></div><div class="side-top"></div>
                     <div class="lid-inner" style="z-index: 5;">
                         <div id="box-items-layer" style="position: absolute; inset: 0;"></div>
-                        <span style="opacity: 0.3;">BOX CONTENT</span>
+                        <span style="opacity: 0.3;">LATT SAUNG</span>
                     </div>
                     <div id="food-container" style="position: absolute; inset: 0; transform-style: preserve-3d; pointer-events: none; z-index: 10;"></div>
                     <div id="box-lid" class="lid" onclick="this.classList.toggle('open')">

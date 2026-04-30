@@ -1,7 +1,9 @@
-def creat_name(first, last):
-    first = first.capitalize()
-    last = last.capitalize()
-    return first + " " + last
+n = 10
+def countdown(n):
+    if n <= 0:
+        print("Boom!")
+    else:
+        print(n)
+        countdown(n-1)
 
-full_name = creat_name("john", "doe")
-print(full_name)
+print(countdown(n))
